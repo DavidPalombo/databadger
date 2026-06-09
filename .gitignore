@@ -19,3 +19,5 @@ pip-delete-this-directory.txt
 *.swo
 *~
 .DS_Store
+
+/output

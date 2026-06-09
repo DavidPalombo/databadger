@@ -53,7 +53,7 @@ class SimpleScraper:
         links = []
 
         for tag in soup.find_all("a", href=True):
-            links.appaned(tag["href"])
+            links.append(tag["href"])
 
         forms = []
 
