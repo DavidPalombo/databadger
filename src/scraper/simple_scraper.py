@@ -3,6 +3,7 @@ import requests
 import time
 
 from bs4 import BeautifulSoup
+from datetime import datetime, timezone
 from src.utils.user_agents import USER_AGENTS
 
 class SimpleScraper:
@@ -72,11 +73,26 @@ class SimpleScraper:
             
             forms.append(form_data)
 
-        return {
-            "target": url,
+        page_data = {
+            "url": url,
             "status_code": response.status_code,
             "title": title,
             "meta_description": meta_description,
             "links": links,
             "forms": forms,
+            "response_headers": dict(response.headers),
+            "content_length": len(response.text),
+        }
+
+        return {
+            "target": url,
+            "scan_time": datetime.now(timezone.utc).isoformat(),
+            "summary": {
+                "pages_discovered": 1,
+                "links_found": len(links),
+                "forms_found": len(forms),
+            },
+            "pages": [
+                page_data
+            ],
         }

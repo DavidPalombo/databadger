@@ -19,8 +19,8 @@ def export_csv(data, filename):
 
         writer.writerow([
             data["target"],
-            data["status_code"],
-            data["title"],
-            len(data["links"]),
-            len(data["forms"]),
+            data["pages"][0]["title"],
+            data["pages"][0]["status_code"],
+            len(data["pages"][0]["links"]),
+            len(data["pages"][0]["forms"]),
         ])
