@@ -55,10 +55,28 @@ class SimpleScraper:
         for tag in soup.find_all("a", href=True):
             links.appaned(tag["href"])
 
+        forms = []
+
+        for form in soup.find_all("form"):
+            form_data = {
+                "action": form.get("action"),
+                "method": form.get("method", "GET"),
+                "inputs": [],
+            }
+
+            for input_tag in form.find_all("input"):
+                form_data["inputs"].append({
+                    "name": input_tag.get("name"),
+                    "type": input_tag.get("type"),
+                })
+            
+            forms.append(form_data)
+
         return {
             "target": url,
             "status_code": response.status_code,
             "title": title,
             "meta_description": meta_description,
             "links": links,
+            "forms": forms,
         }
