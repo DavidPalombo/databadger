@@ -28,6 +28,14 @@ class AdvancedScraper(SimpleScraper):
             page_result = self.scrape(url)
             page_data = page_result["pages"][0]
             self.pages.append(page_data)
+
+            for link in page_data["links"]:
+                absolute_url = urljoin(url, link)
+
+                if not self.is_internal_link(url, absolute_url):
+                    continue
+
+                self._crawl_page(absolute_url, depth + 1)
         
         except Exception as e:
             print(f"Error scraping {url}: {e}")
