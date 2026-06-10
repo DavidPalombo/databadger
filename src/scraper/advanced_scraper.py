@@ -1,3 +1,4 @@
+from datetime import datetime, timezone
 from src.scraper.simple_scraper import SimpleScraper
 from urllib.parse import urljoin, urlparse
 
@@ -40,3 +41,26 @@ class AdvancedScraper(SimpleScraper):
         except Exception as e:
             print(f"Error scraping {url}: {e}")
             return
+        
+    def crawl(self, url):
+        self.visited.clear()
+        self.pages.clear()
+
+        self._crawl_page(url, 0)
+
+        return {
+            "target": url,
+            "scan_time": datetime.now(timezone.utc).isoformat(),
+            "summary": {
+                "pages_discovered": len(self.pages),
+                "links_found": sum(
+                    len(page["links"])
+                    for page in self.pages
+                ),
+                "forms_found": sum(
+                    len(page["forms"])
+                    for page in self.pages
+                ),
+            },
+            "pages": self.pages,
+        }
