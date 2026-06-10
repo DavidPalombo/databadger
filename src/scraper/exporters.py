@@ -17,10 +17,11 @@ def export_csv(data, filename):
             "form_count",
         ])
 
-        writer.writerow([
-            data["target"],
-            data["pages"][0]["title"],
-            data["pages"][0]["status_code"],
-            len(data["pages"][0]["links"]),
-            len(data["pages"][0]["forms"]),
-        ])
+        for page in data["pages"]: 
+            writer.writerow([
+                page["url"],
+                page["title"],
+                page["status_code"],
+                len(page["links"]),
+                len(page["forms"]),
+            ])
