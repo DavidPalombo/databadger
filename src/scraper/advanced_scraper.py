@@ -23,3 +23,12 @@ class AdvancedScraper(SimpleScraper):
         self.visited.add(url)
 
         print(f"Scraping: {url}")
+
+        try:
+            page_result = self.scrape(url)
+            page_data = page_result["pages"][0]
+            self.pages.append(page_data)
+        
+        except Exception as e:
+            print(f"Error scraping {url}: {e}")
+            return
