@@ -97,3 +97,15 @@ class PlaywrightScraper:
             },
             "pages": [page_data]
         }
+    
+    def take_screenshot(self, url, filename):
+        with sync_playwright() as p:
+            browser = p.chromium.launch(headless = self.headless)
+
+            page = browser.new_page()
+
+            page.goto(url, wait_until = "networkidle")
+
+            page.screenshot(path = filename, full_page = True)
+
+            browser.close()
