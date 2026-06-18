@@ -109,3 +109,25 @@ class PlaywrightScraper:
             page.screenshot(path = filename, full_page = True)
 
             browser.close()
+    
+    def scroll_to_bottom(self, page, max_scrolls = 10):
+        for _ in range(max_scrolls):
+            page.evaluate("window.scrollTo(0, document.body.scrollHeight)")
+
+            page.wait_for_timeout(1000)
+
+    def get_scrolling_page_html(self, url):
+        with sync_playwright() as p:
+            browser = p.chromium.launch(headless = self.headless)
+
+            page = browser.new_page()
+
+            page.goto(url, wait_until = "networkidle")
+
+            self.scroll_to_bottom(page)
+
+            html = page.content()
+
+            browser.close()
+
+            return html
