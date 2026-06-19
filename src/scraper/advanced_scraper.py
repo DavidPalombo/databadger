@@ -1,13 +1,15 @@
 from datetime import datetime, timezone
 from src.scraper.simple_scraper import SimpleScraper
+from src.scraper.config import ScraperConfig
 from urllib.parse import urljoin, urlparse
 
 class AdvancedScraper(SimpleScraper):
 
-    def __init__(self, max_depth = 3):
+    def __init__(self, config = None):
         super().__init__()
 
-        self.max_depth = max_depth
+        self.config = config or ScraperConfig()
+        self.max_depth = self.config.max_depth
         self.visited = set()
         self.pages = []
 

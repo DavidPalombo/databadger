@@ -2,6 +2,7 @@ import click
 
 from rich import print
 from src.scraper.advanced_scraper import AdvancedScraper
+from src.scraper.config import ScraperConfig
 from src.scraper.exporters import export_csv, export_json
 from src.scraper.playwright_scraper import PlaywrightScraper
 from src.scraper.simple_scraper import SimpleScraper
@@ -31,7 +32,9 @@ def scrape(url):
 def crawl(url, depth):
     print(f"[cyan]Crawling[/cyan] {url}")
 
-    scraper = AdvancedScraper(max_depth = depth)
+    config = ScraperConfig(max_depth = depth)
+
+    scraper = AdvancedScraper(config = config)
 
     data = scraper.crawl(url)
 
