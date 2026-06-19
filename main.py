@@ -49,7 +49,9 @@ def crawl(url, depth):
 def playwright_scrape(url, headless):
     print(f"[cyan]Paywright scraping[/cyan] {url}")
 
-    scraper = PlaywrightScraper(headless = headless)
+    config = ScraperConfig(headless = headless)
+
+    scraper = PlaywrightScraper(config = config)
 
     data = scraper.scrape(url)
 

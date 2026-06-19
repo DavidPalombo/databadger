@@ -1,12 +1,15 @@
 from bs4 import BeautifulSoup
 from datetime import datetime, timezone
 from playwright.sync_api import sync_playwright
+from src.scraper.config import ScraperConfig
 
 class PlaywrightScraper:
 
-    def __init__(self, headless = True):
+    def __init__(self, config = None):
         # headless is set to True for no browser window to appear
-        self.headless = headless
+        self.config = config or ScraperConfig()
+
+        self.headless = self.config.headless
 
     def get_page_html(self, url):
         with sync_playwright() as p:
