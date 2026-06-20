@@ -2,6 +2,8 @@
 
 A configurable website and data collection platform built with Python.
 
+![HTML Report](docs/images/html_report.png)
+
 DataBadger can scrape individual pages, crawl entire websites, extract structured data, analyze site structure, and generate professional reports. It supports both traditional HTML websites and JavaScript-rendered applications through Playwright.
 
 ## Features
@@ -14,6 +16,7 @@ DataBadger can scrape individual pages, crawl entire websites, extract structure
 * Export results to JSON and CSV
 
 ### Site Mapping & Crawling
+![Crawler Demo](docs/images/terminal_crawl.png)
 
 * Recursive multi-page crawling
 * Configurable crawl depth
