@@ -5,6 +5,7 @@ from src.scraper.advanced_scraper import AdvancedScraper
 from src.scraper.config import ScraperConfig
 from src.scraper.exporters import export_csv, export_json
 from src.scraper.playwright_scraper import PlaywrightScraper
+from src.scraper.report_generator import  generate_html_report
 from src.scraper.simple_scraper import SimpleScraper
 
 @click.group()
@@ -22,6 +23,8 @@ def scrape(url):
 
     export_csv(data, "output/results.csv")
     export_json(data, "output/results.json")
+
+    generate_html_report(data, "output/report.html")
 
     print("[green]Finished[/green]")
 
@@ -41,6 +44,8 @@ def crawl(url, depth):
     export_csv(data, "output/crawl_results.csv")
     export_json(data, "output/crawl_results.json")
 
+    generate_html_report(data, "output/report.html")
+
     print(f"[green]Finished. Found {data['summary']['pages_discovered']} pages[/green]")
 
 @cli.command()
@@ -56,8 +61,9 @@ def playwright_scrape(url, headless):
     data = scraper.scrape(url)
 
     export_json(data, "output/playwright_results.json")
-
     export_csv(data, "output/playwright_results.csv")
+
+    generate_html_report(data, "output/report.html")
 
     print(f"[green]Finished. Found {data['summary']['links_found']} links[/green]")
 
